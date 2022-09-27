@@ -6,6 +6,10 @@ A new Flutter project.
 
 This project is a starting point for a Flutter application.
 
+#Screenshots
+
+![Clarity-app-github](https://user-images.githubusercontent.com/55645585/192434168-0645eb98-7ece-4ea0-abf7-7739180acaa2.jpg)
+
 A few resources to get you started if this is your first Flutter project:
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)

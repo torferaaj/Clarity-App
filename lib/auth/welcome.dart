@@ -1,4 +1,6 @@
 import 'package:decisionlite/auth/login.dart';
+import 'package:decisionlite/utils/colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Welcome extends StatefulWidget {
@@ -12,33 +14,37 @@ class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(14.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                child: Text(
-                  'Clarity',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                ),
+      backgroundColor: AppColors.secondary,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(image: AssetImage('images/Clarity-Logo.png'),height: 170,),
+            // Container(
+            //   child: Text(
+            //     'Clarity',
+            //     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
+            //   ),
+            // ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              width: 300,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.blueGrey,
+                borderRadius: BorderRadius.circular(10)
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Login()));
-                    },
-                    child: Text('Authenticate')),
-              )
-            ],
-          ),
+              child: TextButton(
+
+                  onPressed: () {
+                    Navigator.push(context,
+                        CupertinoPageRoute(builder: (context) => Login()));
+                  },
+                  child: Text('Authenticate', style: TextStyle(fontSize: 18, color: Colors.white),)),
+            )
+          ],
         ),
       ),
     );

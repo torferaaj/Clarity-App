@@ -6,115 +6,130 @@ import 'package:flutter/material.dart';
 import 'package:polls/polls.dart';
 import 'package:provider/provider.dart';
 
-class PollsContainer extends StatefulWidget {
-  const PollsContainer({Key? key}) : super(key: key);
 
-  @override
-  _PollsContainerState createState() => _PollsContainerState();
-}
-
-class _PollsContainerState extends State<PollsContainer> {
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<PollsProvider>(
-        builder: (context, model, child) => Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side:
-                      BorderSide(color: Colors.grey.shade600.withOpacity(0.3))),
-              elevation: 0,
-              margin: const EdgeInsets.only(top: 20, bottom: 20),
-              color: Colors.transparent,
-              child: Container(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                            child: TextFormField(
-                          decoration: const InputDecoration(
-                              hintText: 'Add Polls Title',
-                              hintStyle: TextStyle(fontSize: 18),
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none)),
-                          textCapitalization: TextCapitalization.sentences,
-                          cursorColor: AppColors.primary,
-                          maxLines: 2,
-                          minLines: 1,
-                          validator: (value) {
-                            if (value!.length == 0) {
-                              return 'Enter Title';
-                            } else {
-                              return null;
-                            }
-                          },
-                          onSaved: (value) {
-                            model.addPollTitle(value!);
-                          },
-                        ))
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        for (int i = 0; i < model.pollsOptions.length; i++)
-                          Container(
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                      onPressed: () {
-                                        model.removeOption();
-                                      },
-                                      icon: Icon(Icons.close)),
-                                  Expanded(
-                                      child: TextFormField(
-                                    decoration: InputDecoration(
-                                        hintText: 'Enter Option',
-                                        // hintText: 'Option ${index + 1}',
-                                        border: InputBorder.none),
-                                    validator: (value) {
-                                      if (value!.length == 0) {
-                                        return 'Enter Option';
-                                      } else {
-                                        return null;
-                                      }
-                                    },
-                                    onSaved: (value) {
-                                      model.pollsOptions[i] = value!;
-                                      model.pollsWeights[value] = 0;
-                                    },
-                                  ))
-                                ],
-                              ))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        TextButton(
-                            onPressed: () {
-                              model.addPollOption();
-                            },
-                            child: Text('Add an Option')),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ));
-  }
-}
+// class PollsContainer extends StatefulWidget {
+//   const PollsContainer({Key? key, required this.controllerOne, required
+//    this.controllerTwo}) : super(key: key);
+//
+//   final TextEditingController controllerOne;
+//   final TextEditingController controllerTwo;
+//
+//   @override
+//   _PollsContainerState createState() => _PollsContainerState();
+// }
+//
+// class _PollsContainerState extends State<PollsContainer> {
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Consumer<PollsProvider>(
+//         builder: (context, model, child) => Card(
+//               shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(10),
+//                   side:
+//                       BorderSide(color: Colors.grey.shade600.withOpacity(0.3))),
+//               elevation: 0,
+//               margin: const EdgeInsets.only(top: 20, bottom: 20),
+//               color: Colors.black87,
+//               child: Container(
+//                 padding: EdgeInsets.all(10),
+//                 child: Column(
+//                   children: [
+//                     Row(
+//                       children: [
+//                         Expanded(
+//                             child: TextFormField(
+//                               controller: widget.controllerOne,
+//                               style: TextStyle(color: Colors.white),
+//                               decoration: const InputDecoration(
+//
+//                                   hintText: 'Add Polls Title',
+//                                   hintStyle: TextStyle(fontSize: 18, color: Colors.white),
+//                                   border: OutlineInputBorder(
+//                                       borderSide: BorderSide.none,
+//                                   ),
+//                               ),
+//                               textCapitalization: TextCapitalization.sentences,
+//                               cursorColor: AppColors.primary,
+//                               maxLines: 2,
+//                               minLines: 1,
+//                               validator: (value) {
+//                                 if (value!.length == 0) {
+//                                   return 'Enter Title';
+//                                 } else {
+//                                   return null;
+//                                 }
+//                               },
+//                               onSaved: (value) {
+//                                 model.addPollTitle(value!);
+//                               },
+//                             ),
+//                         )
+//                       ],
+//                     ),
+//                     Column(
+//                       children: [
+//                         for (int i = 0; i < model.pollsOptions.length; i++)
+//                           Container(
+//                               margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+//                               decoration: BoxDecoration(
+//                                 color: Colors.white,
+//                                 borderRadius: BorderRadius.circular(10),
+//                               ),
+//                               child: Row(
+//                                 children: [
+//                                   IconButton(
+//                                       onPressed: () {
+//                                         model.removeOption();
+//                                       },
+//                                       icon: Icon(Icons.close)),
+//                                   Expanded(
+//                                       child: TextFormField(
+//                                         controller: widget.controllerTwo,
+//                                         decoration: const InputDecoration(
+//                                             hintText: 'Enter Option',
+//                                             // hintText: 'Option ${index + 1}',
+//                                             border: InputBorder.none),
+//                                         validator: (value) {
+//                                           if (value!.length == 0) {
+//                                             return 'Enter Option';
+//                                           } else {
+//                                             return null;
+//                                           }
+//                                         },
+//                                         onSaved: (value) {
+//                                           model.pollsOptions[i] = value!;
+//                                           model.pollsWeights[value] = 0;
+//                                         },
+//                                         textCapitalization: TextCapitalization.sentences,
+//                                       ),
+//                                   )
+//                                 ],
+//                               ))
+//                       ],
+//                     ),
+//                     SizedBox(
+//                       height: 10,
+//                     ),
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.start,
+//                       children: [
+//                         TextButton(
+//                             onPressed: () {
+//                               model.addPollOption();
+//                             },
+//                             child: Text('Add an Option')),
+//                       ],
+//                     )
+//                   ],
+//                 ),
+//               ),
+//             ));
+//   }
+// }
 
 class PollsWidget extends StatefulWidget {
-  final String decisionId, decisionTitle, creatorId;
+  final String decisionId, decisionTitle, creatorId,pollerName;
   final Map pollWeights, usersWhoVoted;
   const PollsWidget(
       {Key? key,
@@ -122,7 +137,9 @@ class PollsWidget extends StatefulWidget {
       required this.decisionTitle,
       required this.creatorId,
       required this.pollWeights,
-      required this.usersWhoVoted})
+      required this.usersWhoVoted,
+        required this.pollerName
+      })
       : super(key: key);
 
   @override
@@ -137,20 +154,28 @@ class _PollsWidgetState extends State<PollsWidget> {
       child: Card(
         shadowColor: Colors.grey.shade600.withOpacity(0.2),
         elevation: 0,
-        color: Colors.transparent,
+        color: Colors.black87,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
-            side: BorderSide(color: Colors.grey.shade600.withOpacity(0.3))),
+            side: BorderSide(color: Colors.grey.shade700.withOpacity(0.3))),
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
               Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      widget.decisionTitle,
-                      style: const TextStyle(fontSize: 18),
+                    child: Column(
+                      children: [
+                        Text(
+                          widget.pollerName,
+                          style: const TextStyle(color: Colors.yellowAccent),
+                        ),
+                        Text(
+                          widget.decisionTitle,
+                          style: const TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -168,7 +193,7 @@ class _PollsWidgetState extends State<PollsWidget> {
                 ],
                 allowCreatorVote: true,
                 question: const Text(''),
-                outlineColor: AppColors.primary,
+                outlineColor: Colors.grey.shade500,
 
                 currentUser: currUser!.uid,
                 creatorID: widget.creatorId,
@@ -180,7 +205,7 @@ class _PollsWidgetState extends State<PollsWidget> {
                     .indexOf(widget.usersWhoVoted[widget.decisionId]),
                 onVoteBackgroundColor: AppColors.primary.withOpacity(0.5),
 
-                backgroundColor: Colors.transparent,
+                backgroundColor: Colors.white,
 
                 onVote: (choice) async {
                   Map userWhoVoted = widget.usersWhoVoted;

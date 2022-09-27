@@ -2,7 +2,11 @@ import 'package:decisionlite/pages/addDecision.dart';
 import 'package:decisionlite/pages/dashboard.dart';
 import 'package:decisionlite/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+User? currUser = FirebaseAuth.instance.currentUser;
+
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -26,14 +30,16 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        title: Text('Clarity'),
+        backgroundColor: Colors.black,
+        // title: Text('Clarity'),
+        leading: Icon(Icons.person, size: 30,),
+        title: Text(currUser!.displayName.toString()),
         actions: [
           IconButton(
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
               },
-              icon: Icon(Icons.home))
+              icon: Icon(CupertinoIcons.power))
         ],
       ),
       body: PageView(
@@ -41,6 +47,7 @@ class _HomeState extends State<Home> {
         children: [Dashboard(), AddDecision()],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Dashboard'),
           BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add Decision')

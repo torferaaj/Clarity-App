@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
       providers: [ChangeNotifierProvider(create: (context) => PollsProvider())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(primaryColor: AppColors.primary),
+        theme: ThemeData(primaryColor: AppColors.secondary),
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
